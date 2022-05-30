@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/actors/Actor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/spritesheets/characters.png" type="Texture" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://src/state_machine/StateMachine.gd" type="Script" id=4]
 [ext_resource path="res://src/actors/players/states/PlayerIdle.gd" type="Script" id=5]
 [ext_resource path="res://src/actors/players/states/PlayerWalk.gd" type="Script" id=6]
+[ext_resource path="res://src/actors/players/states/PlayerWall.gd" type="Script" id=7]
+[ext_resource path="res://src/actors/players/states/PlayerAerial.gd" type="Script" id=8]
+[ext_resource path="res://src/actors/players/states/PlayerDeath.gd" type="Script" id=9]
+[ext_resource path="res://src/actors/players/states/PlayerDash.gd" type="Script" id=10]
 [ext_resource path="res://assets/particles/particles.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -255,3 +259,15 @@ script = ExtResource( 5 )
 
 [node name="Walk" type="Node" parent="StateMachine" index="1"]
 script = ExtResource( 6 )
+
+[node name="Aerial" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 8 )
+
+[node name="Dash" type="Node" parent="StateMachine" index="3"]
+script = ExtResource( 10 )
+
+[node name="Wall" type="Node" parent="StateMachine" index="4"]
+script = ExtResource( 7 )
+
+[node name="Death" type="Node" parent="StateMachine" index="5"]
+script = ExtResource( 9 )
