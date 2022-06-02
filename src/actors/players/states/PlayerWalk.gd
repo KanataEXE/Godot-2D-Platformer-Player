@@ -32,10 +32,13 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to("Idle")
 	elif Input.is_action_just_pressed("jump"):
 		state_machine.transition_to("Aerial", {jump = true})
+	elif Input.is_action_just_pressed("dash") and player.can_dash:
+		state_machine.transition_to("Dash")
 
 func enter(_msg := {}) -> void:
 	print("Walk")
 	player.can_double_jump = true
+	player.can_dash = true
 	player.animation_player.play("walking")
 
 func exit() -> void:

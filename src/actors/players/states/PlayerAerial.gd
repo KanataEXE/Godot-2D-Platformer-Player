@@ -18,7 +18,10 @@ func physics_update(delta: float) -> void:
 		player.is_facing_right = false
 	
 	# Calculate velocity
-	player.velocity.x = lerp(player.velocity.x, player.direction * player.max_speed, player.acceleration)
+	if Input.is_action_pressed("right") or Input.is_action_pressed("left"):
+		player.velocity.x = lerp(player.velocity.x, player.direction * player.max_speed, player.acceleration)
+	else:
+		player.velocity.x = lerp(player.velocity.x, 0, player.air_friction)
 	
 	# Apply gravity
 	if player.jump_buffer_timer.is_stopped():
@@ -50,6 +53,9 @@ func physics_update(delta: float) -> void:
 			state_machine.transition_to("Walk")
 		else:
 			state_machine.transition_to("Idle")
+	else:
+		if Input.is_action_just_pressed("dash") and player.can_dash:
+			state_machine.transition_to("Dash")
 
 func enter(msg := {}) -> void:
 	print("Aerial")
