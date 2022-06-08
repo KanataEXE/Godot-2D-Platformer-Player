@@ -35,8 +35,13 @@ func physics_update(delta: float) -> void:
 			player.coyote_timer.stop()
 			player.jump_buffer_timer.stop()
 		
+		# Coyote wall jump
+		elif not player.coyote_wall_timer.is_stopped():
+			player.velocity.y = -player.jump_force
+			player.coyote_wall_timer.stop()
+		
 		# Double Jump
-		elif player.coyote_timer.is_stopped() and player.can_double_jump:
+		elif player.coyote_timer.is_stopped() and player.coyote_timer.is_stopped() and player.can_double_jump:
 			player.velocity.y = -player.jump_force
 			player.can_double_jump = false
 	
@@ -56,6 +61,9 @@ func physics_update(delta: float) -> void:
 	else:
 		if Input.is_action_just_pressed("dash") and player.can_dash:
 			state_machine.transition_to("Dash")
+		elif player.is_on_wall():
+			if Input.is_action_pressed("right") or Input.is_action_pressed("left"):
+				state_machine.transition_to("Wall")
 
 func enter(msg := {}) -> void:
 	print("Aerial")
@@ -65,9 +73,24 @@ func enter(msg := {}) -> void:
 	match msg.keys():
 		["jump"]:
 			player.velocity.y = -player.jump_force
+		
+		["wall_jump"]:
+			player.velocity.y = -player.jump_force
+			if player.check_left_wall():
+				player.velocity.x = player.max_speed * 1.5
+			elif player.check_right_wall():
+				player.velocity.x = -player.max_speed * 1.5
+		
 		["floor_drop"]:
 			player.coyote_timer.start()
 			player.jump_buffer_timer.start()
+		
+		["wall_drop"]:
+			player.coyote_wall_timer.start()
+			if player.check_left_wall():
+				player.velocity.x = player.max_speed / 2
+			elif player.check_right_wall():
+				player.velocity.x = -player.max_speed / 2
 
 func exit() -> void:
 	pass
