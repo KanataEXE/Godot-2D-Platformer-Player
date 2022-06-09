@@ -13,6 +13,7 @@ onready var right_wall_raycast1 := $WallRayCasts/RightWallRayCast1
 onready var right_wall_raycast2 := $WallRayCasts/RightWallRayCast2
 onready var left_wall_raycast1 := $WallRayCasts/LeftWallRayCast1
 onready var left_wall_raycast2 := $WallRayCasts/LeftWallRayCast2
+onready var state_machine := $StateMachine
 
 export var acceleration: float
 export var ground_friction: float
@@ -31,3 +32,6 @@ func check_right_wall() -> bool:
 
 func check_left_wall() -> bool:
 	return left_wall_raycast1.is_colliding() or left_wall_raycast2.is_colliding()
+
+func die() -> void:
+	state_machine.transition_to("Death")

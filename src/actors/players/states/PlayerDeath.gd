@@ -10,7 +10,9 @@ func physics_update(_delta: float) -> void:
 	pass
 
 func enter(_msg := {}) -> void:
-	pass
+	print("Death")
+	
+	player.animation_player.play("dead")
 
 func exit() -> void:
 	pass
