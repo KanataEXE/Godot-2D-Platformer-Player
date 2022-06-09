@@ -1,4 +1,5 @@
-# Godot-2D-Platformer-Player
+# Godot 2D Platformer Player
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E21WS3C)
 
 A controller for 2D Platformer Player with a state machine.
 
